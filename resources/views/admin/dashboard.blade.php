@@ -11,13 +11,13 @@
 </head>
 
 @section('content')
-    <div class="container mx-auto p-6">
-        <h1 class="mb-8 text-center text-3xl font-bold">IoT Dashboard</h1>
+    <x-navbar />
 
+    <main class="container mx-auto p-6">
         <!-- Real-Time Data Section -->
         <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
             <!-- Temperature Card -->
-            <div class="flex items-center space-x-4 rounded-lg border border-gray-400 bg-gray-200 p-6 shadow-lg">
+            <div class="flex items-center space-x-4 rounded-lg border border-gray-100 bg-white p-6 shadow-lg">
                 <i class="fas fa-thermometer-half text-4xl text-red-400"></i>
                 <div>
                     <h2 class="text-xl font-semibold">Temperature</h2>
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <!-- Humidity Card -->
-            <div class="flex items-center space-x-4 rounded-lg border border-gray-400 bg-gray-200 p-6 shadow-lg">
+            <div class="flex items-center space-x-4 rounded-lg border border-gray-100 bg-white p-6 shadow-lg">
                 <i class="fas fa-tint text-4xl text-blue-400"></i>
                 <div>
                     <h2 class="text-xl font-semibold">Humidity</h2>
@@ -35,44 +35,43 @@
         </div>
 
         <!-- Historical Data Chart -->
-        <div class="mb-8 rounded-lg border border-gray-400 bg-gray-200 p-6 shadow-lg">
-            <h2 class="mb-4 text-xl font-semibold">Historical Data</h2>
+        <div class="mb-8 rounded-lg border border-gray-100 bg-white p-4 shadow-lg md:p-6">
+            <h2 class="mb-4 text-xl font-semibold">History Suhu & Kelembaban</h2>
             <canvas id="historicalChart"></canvas>
         </div>
 
         <!-- Device Controls -->
-        <h1 id="statusFuzzy" class="text-center mb-4">Status Auto Fuzzy : <span>Aktif</span></h1>
-        <div class="grid grid-cols-2 gap-4 md:grid-cols-4 text-sm">
+        <h1 class="mb-4 font-semibold text-center" id="statusFuzzy">Status Auto Fuzzy : <span>Aktif</span></h1>
+        <div class="grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
             <!-- Humidifier Button -->
-            <button
-                class="flex items-center space-x-4 rounded-lg border border-gray-400 bg-gray-200 p-4 shadow-lg hover:bg-gray-300"
+            <button class="flex items-center space-x-4 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="humidifierBtn" onclick="toggleDevice('humidifier')">
                 <i class="fas fa-tint text-blue-400"></i>
                 <span>Humidifier: <span id="humidifierStatus">Off</span></span>
             </button>
             <!-- Dehumidifier Button -->
-            <button
-                class="flex items-center space-x-4 rounded-lg border border-gray-400 bg-gray-200 p-4 shadow-lg hover:bg-gray-300"
+            <button class="flex items-center space-x-4 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="dehumidifierBtn" onclick="toggleDevice('dehumidifier')">
                 <i class="fas fa-cloud text-blue-400"></i>
                 <span>Dehumidifier: <span id="dehumidifierStatus">Off</span></span>
             </button>
             <!-- Heater Button -->
-            <button
-                class="flex items-center space-x-4 rounded-lg border border-gray-400 bg-gray-200 p-4 shadow-lg hover:bg-gray-300"
+            <button class="flex items-center space-x-4 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="heaterBtn" onclick="toggleDevice('heater')">
                 <i class="fas fa-fire text-red-400"></i>
                 <span>Heater: <span id="heaterStatus">Off</span></span>
             </button>
             <!-- Fan Button -->
-            <button
-                class="flex items-center space-x-4 rounded-lg border border-gray-400 bg-gray-200 p-4     shadow-lg hover:bg-gray-300"
+            <button class="flex items-center space-x-4 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="fanBtn" onclick="toggleDevice('fan')">
                 <i class="fas fa-fan"></i>
                 <span>Fan: <span id="fanStatus">Off</span></span>
             </button>
         </div>
-    </div>
+
+    </main>
+
+    <x-footer />
 
     <script>
         // Device state management
@@ -89,9 +88,12 @@
             const statusElement = document.getElementById(`${device}Status`);
             const buttonElement = document.getElementById(`${device}Btn`);
             const fuzzyStatusElement = document.getElementById('statusFuzzy').querySelector('span');
-            const fuzzyStatus = deviceStates.humidifier || deviceStates.dehumidifier || deviceStates.heater || deviceStates.fan ? 'Aktif' : 'Tidak Aktif';
+            const fuzzyStatus = deviceStates.humidifier || deviceStates.dehumidifier || deviceStates.heater || deviceStates
+                .fan ? 'Tidak Aktif' : 'Aktif';
             statusElement.textContent = deviceStates[device] ? 'On' : 'Off';
+            buttonElement.classList.toggle('bg-white', !deviceStates[device]);
             buttonElement.classList.toggle('bg-green-300', deviceStates[device]);
+            fuzzyStatusElement.textContent = fuzzyStatus;
 
             // Simulate sending command to IoT device (e.g., via API or WebSocket)
             console.log(`${device} turned ${deviceStates[device] ? 'On' : 'Off'}`);
@@ -149,6 +151,19 @@
                 }
             }
         });
+
+        // Simulate initial data
+        const now = new Date();
+        for (let i = 0; i < 20; i++) {
+            now.setSeconds(now.getSeconds() + (5 * i)); // Add 5 seconds for each iteration
+            const timeLabel = now.toLocaleTimeString();
+            const temp = (Math.random() * 2 + 21).toFixed(1); // Random temp 21-23°C
+            const humidity = (Math.random() * 10 + 40).toFixed(1); // Random humidity 40-50%
+
+            historicalChart.data.labels.push(timeLabel);
+            historicalChart.data.datasets[0].data.push(temp);
+            historicalChart.data.datasets[1].data.push(humidity);
+        }
 
         // Simulate real-time data updates
         setInterval(() => {
