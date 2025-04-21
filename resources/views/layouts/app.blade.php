@@ -12,8 +12,10 @@
 </head>
 
 <body class="bg-gray-200">
-    @yield('content')
+    <x-navbar/>
 
+    @yield('content')
+<x-footer/>
     @stack('scripts')
 </body>
 

@@ -11,9 +11,7 @@
 </head>
 
 @section('content')
-    <x-navbar />
-
-    <main class="container mx-auto p-6">
+    <main class="container mx-auto p-4">
         <!-- Real-Time Data Section -->
         <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
             <!-- Temperature Card -->
@@ -35,8 +33,8 @@
         </div>
 
         <!-- Historical Data Chart -->
-        <div class="mb-8 rounded-lg border border-gray-100 bg-white p-4 shadow-lg md:p-6">
-            <h2 class="mb-4 text-xl font-semibold">History Suhu & Kelembaban</h2>
+        <div class="mb-8 rounded-lg border border-gray-100 bg-white p-0 shadow-lg md:p-6">
+            <h2 class="mb-4 text-md lg:text-xl font-semibold m-4">History Suhu & Kelembaban</h2>
             <canvas id="historicalChart"></canvas>
         </div>
 
@@ -44,34 +42,32 @@
         <h1 class="mb-4 font-semibold text-center" id="statusFuzzy">Status Auto Fuzzy : <span>Aktif</span></h1>
         <div class="grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
             <!-- Humidifier Button -->
-            <button class="flex items-center space-x-4 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
+            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="humidifierBtn" onclick="toggleDevice('humidifier')">
                 <i class="fas fa-tint text-blue-400"></i>
-                <span>Humidifier: <span id="humidifierStatus">Off</span></span>
+                <span>Humidifier <span class="hidden" id="humidifierStatus">Off</span></span>
             </button>
             <!-- Dehumidifier Button -->
-            <button class="flex items-center space-x-4 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
+            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="dehumidifierBtn" onclick="toggleDevice('dehumidifier')">
                 <i class="fas fa-cloud text-blue-400"></i>
-                <span>Dehumidifier: <span id="dehumidifierStatus">Off</span></span>
+                <span>Dehumidifier <span class="hidden" id="dehumidifierStatus">Off</span></span>
             </button>
             <!-- Heater Button -->
-            <button class="flex items-center space-x-4 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
+            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="heaterBtn" onclick="toggleDevice('heater')">
                 <i class="fas fa-fire text-red-400"></i>
-                <span>Heater: <span id="heaterStatus">Off</span></span>
+                <span>Heater <span class="hidden" id="heaterStatus">Off</span></span>
             </button>
             <!-- Fan Button -->
-            <button class="flex items-center space-x-4 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
+            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="fanBtn" onclick="toggleDevice('fan')">
                 <i class="fas fa-fan"></i>
-                <span>Fan: <span id="fanStatus">Off</span></span>
+                <span>Fan <span class="hidden" id="fanStatus">Off</span></span>
             </button>
         </div>
 
     </main>
-
-    <x-footer />
 
     <script>
         // Device state management
