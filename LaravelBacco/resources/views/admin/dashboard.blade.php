@@ -11,14 +11,14 @@
 </head>
 
 @section('content')
-    <main class="container mx-auto p-4">
+    <main class="container min-h-screen mx-auto p-4">
         <!-- Real-Time Data Section -->
         <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
             <!-- Temperature Card -->
             <div class="flex items-center space-x-4 rounded-lg border border-gray-100 bg-white p-6 shadow-lg">
                 <i class="fas fa-thermometer-half text-4xl text-red-400"></i>
                 <div>
-                    <h2 class="text-xl font-semibold">Temperature</h2>
+                    <h2 class="text-md md:text-xl font-semibold">Temperature</h2>
                     <p class="text-2xl" id="temperature">22.5 °C</p>
                 </div>
             </div>
@@ -26,7 +26,7 @@
             <div class="flex items-center space-x-4 rounded-lg border border-gray-100 bg-white p-6 shadow-lg">
                 <i class="fas fa-tint text-4xl text-blue-400"></i>
                 <div>
-                    <h2 class="text-xl font-semibold">Humidity</h2>
+                    <h2 class="text-md md:text-xl font-semibold">Humidity</h2>
                     <p class="text-2xl" id="humidity">45 %</p>
                 </div>
             </div>

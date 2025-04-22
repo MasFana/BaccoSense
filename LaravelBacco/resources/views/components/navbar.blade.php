@@ -2,6 +2,7 @@
         <div class="container mx-auto md:px-6">
             <div class="flex items-center justify-between">
                 <a class="font-semibold md:text-3xl" href="{{ route('dashboard') }}">Baccosense</a>
+                @auth
                 <div>
                     <ul class="hidden md:grid grid-cols-5 justify-center gap-6">
                         <li>
@@ -42,6 +43,7 @@
                         <span class="hidden md:block text-sm">Logout</span>
                     </a>
                 </div>
+                @endauth
             </div>
         </div>
     </nav>

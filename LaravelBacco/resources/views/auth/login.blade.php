@@ -3,14 +3,6 @@
 @section('content')
 
 <main class="min-h-screen w-full bg-white md:bg-inherit flex items-center justify-center">
-    <nav class="absolute top-0 w-full p-2 bg-white shadow-sm">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="{{ url('/') }}" class="text-3xl font-semibold"><</a>
-            <div class="space-x-4">
-            </div>
-        </div>
-
-    </nav>
     <div class="w-full h-full mb-16 lg:mb-0 max-w-md bg-white md:shadow-lg p-6 transition-transform duration-300 ease-in-out">
         <!-- Tobacco SVG Icon -->
         <div class="flex justify-center mb-2">

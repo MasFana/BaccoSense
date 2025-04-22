@@ -20,18 +20,18 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Produk</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Satuan</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Nama Produk</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Harga</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Satuan</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($produks as $produk)
                     <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $produk->nama_produk }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp {{ number_format($produk->harga, 0, ',', '.') }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">{{ $produk->satuan }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $produk->nama_produk }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Rp {{ number_format($produk->harga, 0, ',', '.') }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">{{ $produk->satuan }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <div class="flex space-x-4">
                                 <a href="{{ route('produk.edit', $produk->id) }}" class="text-blue-600 hover:text-blue-900">
@@ -53,7 +53,7 @@
         </div>
 
         @if($produks->isEmpty())
-        <div class="p-6 text-center text-gray-500">
+        <div class="p-6 text-center text-gray-700">
             Tidak ada data produk yang tersedia.
         </div>
         @endif
