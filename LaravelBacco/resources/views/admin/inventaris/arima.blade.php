@@ -1,190 +1,254 @@
 @extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoT Dashboard</title>
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <!-- Font Awesome for Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-</head>
+@section('title', 'Baccosense Prediksi Arima')
+
+@push('styles')
+<style>
+    .chart-container {
+        position: relative;
+        height: 300px;
+        width: 100%;
+    }
+    .badge-improvement {
+        @apply bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded;
+    }
+    .badge-good {
+        @apply bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded;
+    }
+    .badge-poor {
+        @apply bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded;
+    }
+</style>
+@endpush
 
 @section('content')
-    <main class="container min-h-screen mx-auto p-4">
-        <!-- Real-Time Data Section -->
-        <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-            <!-- Temperature Card -->
-            <div class="flex items-center space-x-4 rounded-lg border border-gray-100 bg-white p-6 shadow-lg">
-                <i class="fas fa-thermometer-half text-4xl text-red-400"></i>
-                <div>
-                    <h2 class="text-md md:text-xl font-semibold">Temperature</h2>
-                    <p class="text-2xl" id="temperature">22.5 °C</p>
-                </div>
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-xl md:text-3xl font-bold text-gray-800 mb-6">Baccosense Prediksi Arima</h1>
+    
+    <!-- Metadata Card -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="flex justify-between items-center">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-700">Data Prediksi</h2>
+                <p class="text-gray-500">Dibuat pada {{ \Carbon\Carbon::parse($forecastData['date'])->format('M d, Y H:i') }}</p>
             </div>
-            <!-- Humidity Card -->
-            <div class="flex items-center space-x-4 rounded-lg border border-gray-100 bg-white p-6 shadow-lg">
-                <i class="fas fa-tint text-4xl text-blue-400"></i>
-                <div>
-                    <h2 class="text-md md:text-xl font-semibold">Humidity</h2>
-                    <p class="text-2xl" id="humidity">45 %</p>
+            <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded">
+                {{ $forecastData['metadata']['model'] }} Model
+            </span> 
+        </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Metrics Summary -->
+        <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-1">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Metrik Performa</h2>
+            
+            <div class="space-y-4">
+                @foreach($forecastData['metrics']['rmse'] as $product => $rmse)
+                <div class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-medium text-gray-800">{{ $product }}</h3>
+                        <span class="@if($forecastData['metrics']['interpretation'][$product] == 'Good') badge-good @elseif($forecastData['metrics']['interpretation'][$product] == 'Needs improvement') badge-improvement @else badge-poor @endif">
+                            {{ $forecastData['metrics']['interpretation'][$product] }}
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-2">
+                        <div>
+                            <p class="text-xs text-gray-500">RMSE</p>
+                            <p class="font-medium">{{ number_format($rmse, 2) }}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500">RMSE %</p>
+                            <p class="font-medium">{{ number_format($forecastData['metrics']['rmse_percentage'][$product], 1) }}%</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500">Avg Penjualan</p>
+                            <p class="font-medium">{{ number_format($forecastData['metrics']['mean_sales'][$product], 0) }}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500">Minat</p>
+                            <p class="font-medium">
+                                @if(in_array($product, $forecastData['trend_analysis']['increasing']))
+                                <span class="text-green-600">↑ Meningkat</span>
+                                @else
+                                <span class="text-red-600">↓ Menurun</span>
+                                @endif
+                            </p>
+                        </div>
+                    </div>
                 </div>
+                @endforeach
             </div>
         </div>
 
-        <!-- Historical Data Chart -->
-        <div class="mb-8 rounded-lg border border-gray-100 bg-white p-0 shadow-lg md:p-6">
-            <h2 class="mb-4 text-md lg:text-xl font-semibold m-4">History Suhu & Kelembaban</h2>
-            <canvas id="historicalChart"></canvas>
+        <!-- Charts Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-2">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Sales Forecast</h2>
+            
+            <div class="mb-4">
+                <label for="product-select" class="block text-sm font-medium text-gray-700 mb-2">Select Product</label>
+                <select id="product-select" class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    @foreach(array_keys($forecastData['forecasts']) as $product)
+                    <option value="{{ $product }}">{{ $product }}</option>
+                    @endforeach
+                </select>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="salesChart"></canvas>
+            </div>
         </div>
+    </div>
 
-        <!-- Device Controls -->
-        <h1 class="mb-4 font-semibold text-center" id="statusFuzzy">Status Auto Fuzzy : <span>Aktif</span></h1>
-        <div class="grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
-            <!-- Humidifier Button -->
-            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
-                id="humidifierBtn" onclick="toggleDevice('humidifier')">
-                <i class="fas fa-tint text-blue-400"></i>
-                <span>Humidifier <span class="hidden" id="humidifierStatus">Off</span></span>
-            </button>
-            <!-- Dehumidifier Button -->
-            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
-                id="dehumidifierBtn" onclick="toggleDevice('dehumidifier')">
-                <i class="fas fa-cloud text-blue-400"></i>
-                <span>Dehumidifier <span class="hidden" id="dehumidifierStatus">Off</span></span>
-            </button>
-            <!-- Heater Button -->
-            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
-                id="heaterBtn" onclick="toggleDevice('heater')">
-                <i class="fas fa-fire text-red-400"></i>
-                <span>Heater <span class="hidden" id="heaterStatus">Off</span></span>
-            </button>
-            <!-- Fan Button -->
-            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
-                id="fanBtn" onclick="toggleDevice('fan')">
-                <i class="fas fa-fan"></i>
-                <span>Fan <span class="hidden" id="fanStatus">Off</span></span>
-            </button>
+    <!-- Raw Data Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">Data Historis</h2>
+        
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sales</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach($forecastData['original_data'] as $item)
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ \Carbon\Carbon::parse($item['tanggal'])->format('M d, Y') }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {{ $item['nama_produk'] }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ $item['penjualan'] }}
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
+    </div>
+</div>
+@endsection
 
-    </main>
-
-    <script>
-        // Device state management
-        const deviceStates = {
-            humidifier: false,
-            dehumidifier: false,
-            heater: false,
-            fan: false
-        };
-
-        // Toggle device state
-        function toggleDevice(device) {
-            deviceStates[device] = !deviceStates[device];
-            const statusElement = document.getElementById(`${device}Status`);
-            const buttonElement = document.getElementById(`${device}Btn`);
-            const fuzzyStatusElement = document.getElementById('statusFuzzy').querySelector('span');
-            const fuzzyStatus = deviceStates.humidifier || deviceStates.dehumidifier || deviceStates.heater || deviceStates
-                .fan ? 'Tidak Aktif' : 'Aktif';
-            statusElement.textContent = deviceStates[device] ? 'On' : 'Off';
-            buttonElement.classList.toggle('bg-white', !deviceStates[device]);
-            buttonElement.classList.toggle('bg-green-300', deviceStates[device]);
-            fuzzyStatusElement.textContent = fuzzyStatus;
-
-            // Simulate sending command to IoT device (e.g., via API or WebSocket)
-            console.log(`${device} turned ${deviceStates[device] ? 'On' : 'Off'}`);
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Prepare data for charts
+    const forecastData = @json($forecastData);
+    
+    // Group historical data by product
+    const historicalData = {};
+    forecastData.original_data.forEach(item => {
+        if (!historicalData[item.nama_produk]) {
+            historicalData[item.nama_produk] = [];
         }
-
-        // Chart initialization
-        const ctx = document.getElementById('historicalChart').getContext('2d');
-        const historicalChart = new Chart(ctx, {
+        historicalData[item.nama_produk].push({
+            date: new Date(item.tanggal),
+            sales: item.penjualan
+        });
+    });
+    
+    // Sort historical data by date
+    Object.keys(historicalData).forEach(product => {
+        historicalData[product].sort((a, b) => a.date - b.date);
+    });
+    
+    // Initialize chart
+    let salesChart;
+    
+    function renderChart(product) {
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        
+        // Prepare datasets
+        const historyDates = historicalData[product].map(item => item.date);
+        const historySales = historicalData[product].map(item => item.sales);
+        
+        const forecastDates = forecastData.forecasts[product].dates.map(date => new Date(date));
+        const forecastSales = forecastData.forecasts[product].values;
+        
+        // Combined dates for x-axis
+        const allDates = [...historyDates, ...forecastDates];
+        
+        if (salesChart) {
+            salesChart.destroy();
+        }
+        
+        salesChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [],
-                datasets: [{
-                        label: 'Temperature (°C)',
-                        data: [],
-                        borderColor: '#FF6B6B',
-                        backgroundColor: 'rgba(255, 107, 107, 0.2)',
-                        fill: true,
-                        tension: 0.4
+                labels: allDates.map(date => date.toLocaleDateString()),
+                datasets: [
+                    {
+                        label: 'Penjualan Asli',
+                        data: [...historySales, ...Array(forecastSales.length).fill(null)],
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                        tension: 0.3,
+                        fill: true
                     },
                     {
-                        label: 'Humidity (%)',
-                        data: [],
-                        borderColor: '#4ECDC4',
-                        backgroundColor: 'rgba(78, 205, 196, 0.2)',
-                        fill: true,
-                        tension: 0.4
+                        label: 'Prediksi Penjualan',
+                        data: [...Array(historySales.length).fill(null), ...forecastSales],
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                        borderDash: [5, 5],
+                        tension: 0.3,
+                        fill: true
                     }
                 ]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     x: {
                         title: {
                             display: true,
-                            text: 'Time',
-                            color: '#000000'
+                            text: 'Date'
                         }
                     },
                     y: {
                         title: {
                             display: true,
-                            text: 'Value',
-                            color: '#000000'
+                            text: 'Penjualan'
                         },
                         beginAtZero: false
                     }
                 },
                 plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw}`;
+                            }
+                        }
+                    },
                     legend: {
-                        labels: {
-                            color: '#000000'
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: `${product} Prediksi`,
+                        font: {
+                            size: 16
                         }
                     }
                 }
             }
         });
-
-        // Simulate initial data
-        const now = new Date();
-        for (let i = 0; i < 20; i++) {
-            now.setSeconds(now.getSeconds() + (5 * i)); // Add 5 seconds for each iteration
-            const timeLabel = now.toLocaleTimeString();
-            const temp = (Math.random() * 2 + 21).toFixed(1); // Random temp 21-23°C
-            const humidity = (Math.random() * 10 + 40).toFixed(1); // Random humidity 40-50%
-
-            historicalChart.data.labels.push(timeLabel);
-            historicalChart.data.datasets[0].data.push(temp);
-            historicalChart.data.datasets[1].data.push(humidity);
-        }
-
-        // Simulate real-time data updates
-        setInterval(() => {
-            const newTemp = (Math.random() * 2 + 21).toFixed(1); // Random temp 21-23°C
-            const newHumidity = (Math.random() * 10 + 40).toFixed(1); // Random humidity 40-50%
-            const now = new Date();
-            const timeLabel = now.toLocaleTimeString();
-
-            // Update real-time display
-            document.getElementById('temperature').textContent = `${newTemp} °C`;
-            document.getElementById('humidity').textContent = `${newHumidity} %`;
-
-            // Update chart
-            historicalChart.data.labels.push(timeLabel);
-            historicalChart.data.datasets[0].data.push(newTemp);
-            historicalChart.data.datasets[1].data.push(newHumidity);
-
-            // Keep only last 20 data points
-            if (historicalChart.data.labels.length > 20) {
-                historicalChart.data.labels.shift();
-                historicalChart.data.datasets[0].data.shift();
-                historicalChart.data.datasets[1].data.shift();
-            }
-
-            historicalChart.update();
-        }, 5000); // Update every 5 seconds
-    </script>
-@endsection
+    }
+    
+    // Initial render with first product
+    renderChart(Object.keys(forecastData.forecasts)[0]);
+    
+    // Handle product selection change
+    document.getElementById('product-select').addEventListener('change', function() {
+        renderChart(this.value);
+    });
+</script>
+@endpush
