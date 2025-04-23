@@ -97,7 +97,7 @@
                 </div>
                 <i class="fas fa-thermometer-half text-4xl text-red-400 z-50"></i>
                 <div class="w-full z-50">
-                    <h2 class="text-md font-semibold md:text-xl">Temperature</h2>
+                    <h2 class="text-md font-semibold md:text-xl">Suhu</h2>
                     <p class="text-2xl" id="temperature">22.5 °C</p>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                 </div>
                 <i class="z-50 fas fa-tint text-4xl text-blue-400"></i>
                 <div class="w-full z-50">
-                    <h2 class="text-md font-semibold md:text-xl">Humidity</h2>
+                    <h2 class="text-md font-semibold md:text-xl">kelembapan</h2>
                     <p class="text-2xl" id="humidity">45 %</p>
                 </div>
             </div>
@@ -116,8 +116,8 @@
 
         <!-- Rest of your template remains the same -->
         <!-- Historical Data Chart -->
-        <div class="mb-8 rounded-lg border border-gray-100 bg-white p-0 shadow-lg md:p-6">
-            <h2 class="text-md m-4 mb-4 font-semibold lg:text-xl">History Suhu & Kelembaban</h2>
+        <div class="mb-8 rounded-lg border border-gray-100 bg-white p-2 m shadow-lg md:p-6">
+            <h2 class="text-md m-4 font-semibold lg:text-xl">History Suhu & Kelembapan</h2>
             <canvas id="historicalChart"></canvas>
         </div>
 

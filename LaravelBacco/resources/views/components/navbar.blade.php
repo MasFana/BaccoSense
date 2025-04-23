@@ -1,4 +1,4 @@
-    <nav class="sticky top-0 z-10 w-full bg-white p-3 shadow-md">
+    <nav class="sticky top-0 z-[999] w-full bg-white p-3 shadow-md ">
         <div class="container mx-auto md:px-6">
             <div class="flex items-center justify-between">
                 <a class="font-semibold md:text-3xl" href="{{ route('dashboard') }}">Baccosense</a>
