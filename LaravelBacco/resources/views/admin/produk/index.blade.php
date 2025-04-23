@@ -7,7 +7,7 @@
 </head>
 
 @section('content')
-<main class="container mx-auto p-4 md:p-6 min-h-screen">
+<main class="container mx-auto p-0 md:p-6 min-h-screen max-w-screen">
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center p-4 border-b border-gray-200">
             <h1 class="text-xl font-semibold text-gray-800 mb-2 md:mb-0">Data Produk</h1>
@@ -17,12 +17,14 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="max-w-screen md:min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Nama Produk</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Harga</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Satuan</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Stok</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Deskripsi</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
@@ -32,6 +34,8 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $produk->nama_produk }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Rp {{ number_format($produk->harga, 0, ',', '.') }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">{{ $produk->satuan }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $produk->stok }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $produk->deskripsi }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <div class="flex space-x-4">
                                 <a href="{{ route('produk.edit', $produk->id) }}" class="text-blue-600 hover:text-blue-900">

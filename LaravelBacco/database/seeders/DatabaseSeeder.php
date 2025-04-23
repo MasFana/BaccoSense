@@ -23,12 +23,14 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make($value = 'admin'),
         ]);
 
-        Produk::factory(10)->create([
-            'nama_produk' => 'Produk ' . fake()->word(),
-            'deskripsi' => fake()->sentence(),
-            'harga' => fake()->randomFloat(2, 1, 1000),
-            'stok' => fake()->numberBetween(1, 100),
-            'satuan' => fake()->word(),
-        ]);
+        Produk::factory()->count(10)->create()->each(function ($produk) {
+            $jenis = fake()->randomElement(['Virginia', 'Mole', 'Srinthil', 'Garangan']);
+            $produk->update([
+                'nama_produk' => 'Tembakau ' . $jenis,
+                'deskripsi' => 'Tembakau Aseli ' . $jenis,
+                'harga' => fake()->randomFloat(0, 150000, 300000),
+                'stok' => fake()->numberBetween(100, 200),
+            ]);
+        });
     }
 }

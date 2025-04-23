@@ -8,151 +8,65 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <!-- Font Awesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <style>
-        /* Animation styles */
-        .gauge-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #f3f4f6;
-            overflow: hidden;
-            opacity: 50%;
-        }
-
-        .gauge-fill {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: width 0.5s ease, background-color 0.5s ease;
-        }
-
-        .temp-gauge {
-            background-color: #ff6b6b;
-        }
-
-        .humidity-gauge {
-            background-color: #4ecdc4;
-        }
-
-        /* Dynamic color classes */
-        .cold {
-            background-color: #93c5fd;
-            /* Light blue */
-        }
-
-        .cool {
-            background-color: #60a5fa;
-            /* Blue */
-        }
-
-        .normal {
-            background-color: #4ade80;
-            /* Green */
-        }
-
-        .warm {
-            background-color: #fbbf24;
-            /* Yellow */
-        }
-
-        .hot {
-            background-color: #f87171;
-            /* Red */
-        }
-
-        .dry {
-            background-color: #bfdbfe;
-            /* Very light blue */
-        }
-
-        .comfortable {
-            background-color: #86efac;
-            /* Light green */
-        }
-
-        .moist {
-            background-color: #5eead4;
-            /* Teal */
-        }
-
-        .humid {
-            background-color: #22d3ee;
-            /* Cyan */
-        }
-    </style>
 </head>
 
 @section('content')
-    <main class="container mx-auto min-h-screen p-4">
+    <main class="container min-h-screen mx-auto p-4">
         <!-- Real-Time Data Section -->
         <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
             <!-- Temperature Card -->
-            <div class="flex items-center space-x-4 rounded-lg bg-white p-6 shadow-lg relative">
-                <div class="gauge-container z-0 rounded-lg">
-                    <div class="gauge-fill temp-gauge" id="tempGauge"></div>
-                </div>
-                <i class="fas fa-thermometer-half text-4xl text-red-400 z-50"></i>
-                <div class="w-full z-50">
-                    <h2 class="text-md font-semibold md:text-xl">Temperature</h2>
+            <div class="flex items-center space-x-4 rounded-lg border border-gray-100 bg-white p-6 shadow-lg">
+                <i class="fas fa-thermometer-half text-4xl text-red-400"></i>
+                <div>
+                    <h2 class="text-md md:text-xl font-semibold">Temperature</h2>
                     <p class="text-2xl" id="temperature">22.5 °C</p>
                 </div>
             </div>
             <!-- Humidity Card -->
-            <div class="flex items-center space-x-4 rounded-lg bg-white p-6 shadow-lg relative">
-                <div class="gauge-container rounded-lg z-0">
-                    <div class="gauge-fill humidity-gauge" id="humidityGauge"></div>
-                </div>
-                <i class="z-50 fas fa-tint text-4xl text-blue-400"></i>
-                <div class="w-full z-50">
-                    <h2 class="text-md font-semibold md:text-xl">Humidity</h2>
+            <div class="flex items-center space-x-4 rounded-lg border border-gray-100 bg-white p-6 shadow-lg">
+                <i class="fas fa-tint text-4xl text-blue-400"></i>
+                <div>
+                    <h2 class="text-md md:text-xl font-semibold">Humidity</h2>
                     <p class="text-2xl" id="humidity">45 %</p>
                 </div>
             </div>
         </div>
 
-        <!-- Rest of your template remains the same -->
         <!-- Historical Data Chart -->
         <div class="mb-8 rounded-lg border border-gray-100 bg-white p-0 shadow-lg md:p-6">
-            <h2 class="text-md m-4 mb-4 font-semibold lg:text-xl">History Suhu & Kelembaban</h2>
+            <h2 class="mb-4 text-md lg:text-xl font-semibold m-4">History Suhu & Kelembaban</h2>
             <canvas id="historicalChart"></canvas>
         </div>
 
         <!-- Device Controls -->
-        <h1 class="mb-4 text-center font-semibold" id="statusFuzzy">Status Auto Fuzzy : <span>Aktif</span></h1>
+        <h1 class="mb-4 font-semibold text-center" id="statusFuzzy">Status Auto Fuzzy : <span>Aktif</span></h1>
         <div class="grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
             <!-- Humidifier Button -->
-            <button
-                class="flex items-center space-x-2 rounded-lg border border-gray-100 bg-white p-4 shadow-lg hover:scale-105"
+            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="humidifierBtn" onclick="toggleDevice('humidifier')">
                 <i class="fas fa-tint text-blue-400"></i>
                 <span>Humidifier <span class="hidden" id="humidifierStatus">Off</span></span>
             </button>
             <!-- Dehumidifier Button -->
-            <button
-                class="flex items-center space-x-2 rounded-lg border border-gray-100 bg-white p-4 shadow-lg hover:scale-105"
+            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="dehumidifierBtn" onclick="toggleDevice('dehumidifier')">
                 <i class="fas fa-cloud text-blue-400"></i>
                 <span>Dehumidifier <span class="hidden" id="dehumidifierStatus">Off</span></span>
             </button>
             <!-- Heater Button -->
-            <button
-                class="flex items-center space-x-2 rounded-lg border border-gray-100 bg-white p-4 shadow-lg hover:scale-105"
+            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="heaterBtn" onclick="toggleDevice('heater')">
                 <i class="fas fa-fire text-red-400"></i>
                 <span>Heater <span class="hidden" id="heaterStatus">Off</span></span>
             </button>
             <!-- Fan Button -->
-            <button
-                class="flex items-center space-x-2 rounded-lg border border-gray-100 bg-white p-4 shadow-lg hover:scale-105"
+            <button class="flex items-center space-x-2 rounded-lg border bg-white border-gray-100 p-4 shadow-lg hover:scale-105"
                 id="fanBtn" onclick="toggleDevice('fan')">
                 <i class="fas fa-fan"></i>
                 <span>Fan <span class="hidden" id="fanStatus">Off</span></span>
             </button>
         </div>
+
     </main>
 
     <script>
@@ -224,9 +138,6 @@
                         beginAtZero: false
                     }
                 },
-                animation: {
-                    duration: 500 // Disable animation for real-time updates
-                },
                 plugins: {
                     legend: {
                         labels: {
@@ -250,76 +161,16 @@
             historicalChart.data.datasets[1].data.push(humidity);
         }
 
-        // Update gauge functions
-        function updateTemperatureGauge(temp) {
-            const gauge = document.getElementById('tempGauge');
-            const percentage = Math.min(100, Math.max(0, (temp / 40) * 100)); // Scale to 0-40°C range
-
-            // Update width with animation
-            gauge.style.width = `${percentage}%`;
-
-            // Update color based on temperature
-            gauge.className = 'gauge-fill temp-gauge ' +
-                (temp < 10 ? 'cold' :
-                    temp < 18 ? 'cool' :
-                    temp < 26 ? 'normal' :
-                    temp < 32 ? 'warm' : 'hot');
-        }
-
-        function updateHumidityGauge(humidity) {
-            const gauge = document.getElementById('humidityGauge');
-
-            // Update width with animation
-            gauge.style.width = `${humidity}%`;
-
-            // Update color based on humidity
-            gauge.className = 'gauge-fill humidity-gauge ' +
-                (humidity < 30 ? 'dry' :
-                    humidity < 50 ? 'comfortable' :
-                    humidity < 70 ? 'moist' : 'humid');
-        }
-
-        // Initialize gauges
-        updateTemperatureGauge(22.5);
-        updateHumidityGauge(45);
-
         // Simulate real-time data updates
-        const ws = new WebSocket('ws://localhost:6969');
-        ws.onopen = function() {
-            console.log('WebSocket connection established');
-        };
-
-        ws.onmessage = function(event) {
-            const data = JSON.parse(event.data);
-            const newTemp = data.data.suhu;
-            const newHumidity = data.data.kelembapan;
-            // Update real-time display
-            updateRealTimeDisplay(newTemp, newHumidity);
-        };
-
-        ws.onclose = function(e) {
-            console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
-            setTimeout(function() {
-                connect();
-            }, 1000);
-        };
-
-        ws.onerror = function(err) {
-            console.error('Socket encountered error: ', err.message, 'Closing socket');
-            ws.close();
-        };
-
-        function updateRealTimeDisplay(newTemp, newHumidity) {
+        setInterval(() => {
+            const newTemp = (Math.random() * 2 + 21).toFixed(1); // Random temp 21-23°C
+            const newHumidity = (Math.random() * 10 + 40).toFixed(1); // Random humidity 40-50%
             const now = new Date();
             const timeLabel = now.toLocaleTimeString();
 
             // Update real-time display
             document.getElementById('temperature').textContent = `${newTemp} °C`;
             document.getElementById('humidity').textContent = `${newHumidity} %`;
-
-            // Update gauges
-            updateTemperatureGauge(newTemp);
-            updateHumidityGauge(newHumidity);
 
             // Update chart
             historicalChart.data.labels.push(timeLabel);
@@ -334,6 +185,6 @@
             }
 
             historicalChart.update();
-        }
+        }, 5000); // Update every 5 seconds
     </script>
 @endsection

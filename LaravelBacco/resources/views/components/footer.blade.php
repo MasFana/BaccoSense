@@ -1,6 +1,6 @@
     @props(['active'])
 
-    <footer class="sticky bottom-0 z-10 w-full bg-white py-3 shadow-lg md:hidden">
+    <footer class="sticky bottom-0 z-10 w-full bg-white py-3 shadow-md border-t-[0.1px] border-gray-200 md:hidden">
         <div class="container mx-auto">
             <ul class="flex items-center justify-around">
                 <li>

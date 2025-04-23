@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use Illuminate\Auth\Events\Login;
+
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\InventarisController;
 
 // Show the login form
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -39,6 +40,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/produk/edit/{id}', [ProdukController::class, 'update'])->name('produk.update');
     Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
     
-    // Route::post('/produk/store', [ProdukController::class, 'store'])->name('produkStore');
-    // Route::post('/produk/update/{id}', [ProdukController::class, 'update'])->name('produkUpdate');
+    Route::get('/inventaris',[InventarisController::class, 'index'])->name('inventaris');
+    Route::get('/inventaris/arima',[InventarisController::class, 'arima'])->name('inventaris.arima');
+    // Placeholder for other routes
+    
+    Route::get('/penjualan', [InventarisController::class, 'index'])->name('inventaris');
+    Route::get('/pembelian', [InventarisController::class, 'index'])->name('inventaris');
 });
