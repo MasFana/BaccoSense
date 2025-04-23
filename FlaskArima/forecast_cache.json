@@ -1,0 +1,33 @@
+{
+    "forecasts": {
+        "Tembakau Garangan": [
+            1095,
+            1720,
+            1945
+        ],
+        "Tembakau Mole": [
+            412,
+            701,
+            460
+        ],
+        "Tembakau Srinthil": [
+            586,
+            1118,
+            882
+        ],
+        "Tembakau Virginia": [
+            468,
+            807,
+            860
+        ]
+    },
+    "produk_naik": [
+        "Tembakau Garangan",
+        "Tembakau Virginia"
+    ],
+    "produk_turun": [
+        "Tembakau Mole",
+        "Tembakau Srinthil"
+    ],
+    "date": "2025-04-23"
+}
