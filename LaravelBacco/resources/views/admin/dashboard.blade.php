@@ -7,7 +7,6 @@
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <!-- Font Awesome for Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
         /* Animation styles */
         .gauge-container {
@@ -16,7 +15,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #f3f4f6;
             overflow: hidden;
             opacity: 50%;
         }
@@ -83,6 +81,11 @@
             background-color: #22d3ee;
             /* Cyan */
         }
+
+          .inset-depth {
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1), inset 0 -4px 8px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+  }
     </style>
 </head>
 
@@ -91,8 +94,8 @@
         <!-- Real-Time Data Section -->
         <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
             <!-- Temperature Card -->
-            <div class="flex items-center space-x-4 rounded-lg bg-white p-6 shadow-lg relative">
-                <div class="gauge-container z-0 rounded-lg">
+            <div class="flex items-center space-x-4 rounded-lg bg-gray-200 p-6 relative">
+                <div class="gauge-container inset-depth z-0 rounded-lg">
                     <div class="gauge-fill temp-gauge" id="tempGauge"></div>
                 </div>
                 <i class="fas fa-thermometer-half text-4xl text-red-400 z-50"></i>
@@ -102,8 +105,8 @@
                 </div>
             </div>
             <!-- Humidity Card -->
-            <div class="flex items-center space-x-4 rounded-lg bg-white p-6 shadow-lg relative">
-                <div class="gauge-container rounded-lg z-0">
+            <div class="flex items-center space-x-4 rounded-lg bg-gray-200 p-6 relative">
+                <div class="gauge-container inset-depth rounded-lg z-0">
                     <div class="gauge-fill humidity-gauge" id="humidityGauge"></div>
                 </div>
                 <i class="z-50 fas fa-tint text-4xl text-blue-400"></i>

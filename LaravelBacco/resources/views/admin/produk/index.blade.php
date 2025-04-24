@@ -1,11 +1,5 @@
 @extends('layouts.app')
 
-<head>
-    <title>Data Produk</title>
-    <!-- Font Awesome for Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">    
-</head>
-
 @section('content')
 <main class="container mx-auto p-0 md:p-6 min-h-screen max-w-screen">
     <div class="bg-white rounded-lg shadow-md overflow-hidden">

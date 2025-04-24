@@ -33,7 +33,7 @@
                 <p class="text-gray-500">Dibuat pada {{ \Carbon\Carbon::parse($forecastData['date'])->format('M d, Y H:i') }}</p>
             </div>
             <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded">
-                {{ $forecastData['metadata']['model'] }} Model
+                {{ $forecastData['metadata']['model'] }} <span class="hidden md:block"></span>
             </span> 
         </div>
     </div>
@@ -84,10 +84,10 @@
 
         <!-- Charts Section -->
         <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-2">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Sales Forecast</h2>
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Prediksi Penjualan</h2>
             
             <div class="mb-4">
-                <label for="product-select" class="block text-sm font-medium text-gray-700 mb-2">Select Product</label>
+                <label for="product-select" class="block text-sm font-medium text-gray-700 mb-2">Pilih Produk</label>
                 <select id="product-select" class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     @foreach(array_keys($forecastData['forecasts']) as $product)
                     <option value="{{ $product }}">{{ $product }}</option>

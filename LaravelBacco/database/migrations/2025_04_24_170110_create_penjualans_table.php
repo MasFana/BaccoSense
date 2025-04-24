@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Models\Produk;
 
 return new class extends Migration
 {
@@ -11,14 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produks', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::create('penjualans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_produk', 255);
-            $table->text('deskripsi')->nullable();
-            $table->decimal('harga', 10, 2);
-            $table->integer('stok');
-            $table->string('satuan', 50)->default('100 gram');
+            $table->foreignIdFor(Produk::class);
+            $table->integer('jumlah')->unsigned();
+            $table->decimal('harga',10,2);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produks');
+        Schema::dropIfExists('penjualans');
     }
 };

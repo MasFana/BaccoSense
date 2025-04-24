@@ -19,7 +19,7 @@ async def send_periodic_updates():
             })
             # Broadcast to all connected clients
             websockets.broadcast(clients, message)
-        await asyncio.sleep(5)  # Wait for 1 second
+        await asyncio.sleep(1)  # Wait for 1 second
 
 async def handle_message(websocket):
     clients.add(websocket)
