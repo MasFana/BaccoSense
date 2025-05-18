@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('pembelians', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Produk::class);
+            $table->foreignIdFor(Produk::class,'produk_id')->constrained();
             $table->integer('jumlah')->unsigned();
             $table->decimal('harga', 10, 2);
             $table->timestamps();

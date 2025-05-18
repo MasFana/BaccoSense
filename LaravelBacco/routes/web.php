@@ -29,21 +29,22 @@ Route::group(['middleware' => ['auth']], function () {
         return view('admin.dashboard');
     })->name('dashboard');
 
-    Route::get('/admin', function () {
-        return view('admin');
-    })->name('admin');
+    Route::group(['prefix' => 'produk'], function () {
+        Route::get('/', [ProdukController::class, 'index'])->name('produk');
+        Route::get('/edit/{id}', [ProdukController::class, 'edit'])->name('produk.edit');
+        Route::get('/tambah', [ProdukController::class, 'tambah'])->name('produk.tambah');
+        Route::post('/', [ProdukController::class, 'store'])->name('produk.create');
+        Route::post('/edit/{id}', [ProdukController::class, 'update'])->name('produk.update');
+        Route::delete('/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+    });
+    
+    Route::group(['prefix' => 'inventaris'], function () {
+        Route::get('/', [InventarisController::class, 'index'])->name('inventaris');
+        Route::get('edit/{id}', [InventarisController::class, 'edit'])->name('inventaris.edit');
+        Route::get('/arima', [InventarisController::class, 'arima'])->name('inventaris.arima');
+    });
 
-    Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
-    Route::get('/produk/edit/{id}', [ProdukController::class, 'edit'])->name('produk.edit');
-    Route::get('/produk/tambah', [ProdukController::class, 'tambah'])->name('produk.tambah');
-    Route::post('/produk', [ProdukController::class, 'store'])->name('produk.create');
-    Route::post('/produk/edit/{id}', [ProdukController::class, 'update'])->name('produk.update');
-    Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
     
-    Route::get('/inventaris',[InventarisController::class, 'index'])->name('inventaris');
-    Route::get('/inventaris/arima',[InventarisController::class, 'arima'])->name('inventaris.arima');
-    // Placeholder for other routes
-    
-    Route::get('/penjualan', [InventarisController::class, 'index'])->name('inventaris');
-    Route::get('/pembelian', [InventarisController::class, 'index'])->name('inventaris');
+    Route::get('/penjualan', [InventarisController::class, 'index'])->name('penjualan');
+    Route::get('/pembelian', [InventarisController::class, 'index'])->name('pembelian');
 });

@@ -4,9 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Produk;
+use App\Models\Inventaris;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,14 +24,16 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make($value = 'admin'),
         ]);
 
-        Produk::factory()->count(10)->create()->each(function ($produk) {
-            $jenis = fake()->randomElement(['Virginia', 'Mole', 'Srinthil', 'Garangan']);
-            $produk->update([
-                'nama_produk' => 'Tembakau ' . $jenis,
-                'deskripsi' => 'Tembakau Aseli ' . $jenis,
+        collect(['Virginia', 'Mole', 'Srinthil', 'Garangan'])->each(function ($jenis) {
+            Produk::factory()->create([
+                'nama_produk' => "Tembakau {$jenis}",
+                'deskripsi' => "Tembakau Aseli {$jenis}",
                 'harga' => fake()->randomFloat(0, 150000, 300000),
                 'stok' => fake()->numberBetween(100, 200),
             ]);
+        });
+
+        Inventaris::factory(10)->create()->each(function ($inventaris) {
         });
     }
 }

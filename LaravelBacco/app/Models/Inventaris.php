@@ -10,6 +10,7 @@ class Inventaris extends Model
     use HasFactory;
 
     protected $fillable = [
+        "produk_id",
         "jumlah",
         "is_rusak"
     ];
@@ -17,7 +18,7 @@ class Inventaris extends Model
 
     public function produk()
     {
-        return $this->belongsTo(Produk::class);
+        return $this->belongsTo(Produk::class,'produk_id');
     }
 
 }

@@ -10,12 +10,13 @@ class Pembelian extends Model
     use HasFactory;
 
     protected $fillable = [
+        "produk_id",
         "jumlah",
         "harga"
     ];
 
     public function produk()
     {
-        return $this->belongsTo(Produk::class);
+        return $this->belongsTo(Produk::class,'produk_id');
     }
 }

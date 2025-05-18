@@ -18,7 +18,7 @@
                     </a>
                     <a class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-700"
                         href="{{ route('produk.tambah') }}">
-                        <i class="fas fa-plus mr-2"></i> Tambah Produk
+                        <i class="fas fa-plus mr-2"></i> Tambah Inventaris
                     </a>
                 </div>
             </div>
@@ -30,35 +30,38 @@
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-700"
                                 scope="col">Nama Produk</th>
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-700"
-                                scope="col">Harga</th>
+                                scope="col">Jumlah</th>
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-700"
-                                scope="col">Satuan</th>
+                                scope="col">Rusak</th>
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-700"
                                 scope="col">Stok</th>
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-700"
-                                scope="col">Deskripsi</th>
+                                scope="col">Tanggal</th>
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-700"
                                 scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
-                        @foreach ($produks as $produk)
-                            <tr class="transition-colors hover:bg-gray-50">
-                                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">{{ $produk->nama_produk }}
+                        @foreach ($inventaris as $inven)
+                            <tr class="transition-colors hover:bg-gray-50 {{$inven->is_rusak ? 'bg-red-50 hover:bg-red-100' : 'bg-green-100 hover:bg-green-200'}}"> 
+                                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">
+                                    {{ $inven->produk->nama_produk }}</td>
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">Rp
-                                    {{ number_format($produk->harga, 0, ',', '.') }}</td>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-700">
-                                    {{ $produk->satuan }}</td>
-                                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">{{ $produk->stok }}</td>
-                                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">{{ $produk->deskripsi }}</td>
+                                    {{ $inven->jumlah }}</td>
+                                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">
+                                    {{ $inven->is_rusak ? 'Rusak' : '' }}</td>
+                                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">{{ $inven->produk->stok }}
+                                </td>
+                                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">{{ $inven->created_at->format('d-m-Y') }}
+                                </td>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">
                                     <div class="flex space-x-4">
                                         <a class="text-blue-600 hover:text-blue-900"
-                                            href="{{ route('produk.edit', $produk->id) }}">
+                                            href="{{ route('inventaris.edit', $inven->id) }}">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
-                                        <form class="inline" action="{{ route('produk.destroy', $produk->id) }}"
+                                        <form class="inline" action="{{ route('produk.destroy', $inven->id) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -68,6 +71,7 @@
                                             </button>
                                         </form>
                                     </div>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -75,15 +79,15 @@
                 </table>
             </div>
 
-            @if ($produks->isEmpty())
+            @if ($inventaris->isEmpty())
                 <div class="p-6 text-center text-gray-700">
-                    Tidak ada data produk yang tersedia.
+                    Tidak ada data Inventaris yang tersedia.
                 </div>
             @endif
 
             <!-- Pagination would go here if needed -->
             <div class="border-t border-gray-200 px-6 py-4">
-                {{ $produks->links() }}
+                {{ $inventaris->links() }}
             </div>
         </div>
     </main>

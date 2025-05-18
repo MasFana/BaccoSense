@@ -6,14 +6,33 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use App\Models\Inventaris;
 
 class InventarisController extends Controller
 {
+    // public function index()
+    // {
+    //     return view('admin.inventaris.index', ['produks' => Produk::latest()->paginate(15)]);
+    // }
+
     public function index()
     {
-        return view('admin.inventaris.index', ['produks' => Produk::latest()->paginate(15)]);
+        $inventaris = Inventaris::with("produk")
+            ->orderBy('is_rusak', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+
+        return view('admin.inventaris.index', compact('inventaris'));
     }
 
+    public function edit($id)
+    {
+        $inventaris = Inventaris::findOrFail($id);
+        $produks = Produk::orderBy('nama')->get();
+        return view('admin.inventaris.edit', compact('inventaris', 'produks'));
+    }
+    
+    
     public function arima()
     {
         try {

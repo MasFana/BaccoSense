@@ -18,16 +18,16 @@ class Produk extends Model
 
     public function inventaris()
     {
-        return $this->hasMany(Inventaris::class);
+        return $this->hasMany(Inventaris::class,'produk_id');
     }
 
     public function pembelian()
     {
-        return $this->hasMany(Pembelian::class);
+        return $this->hasMany(Pembelian::class,'produk_id');
     }
 
     public function penjualan()
     {
-        return $this->hasMany(Penjualan::class);
+        return $this->hasMany(Penjualan::class,'produk_id');
     }
 }
