@@ -27,6 +27,14 @@ class ProdukController extends Controller
 
     public function store(Request $produk)
     {
+        $produk->validate([
+            'nama_produk' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:1000',
+            'harga' => 'required|numeric|min:0',
+            'stok' => 'required|integer|min:0',
+            'satuan' => 'string|max:50',
+        ]);
+        
         Produk::create([
             'nama_produk' => $produk['nama_produk'],
             'deskripsi' => $produk['deskripsi'],
@@ -47,16 +55,25 @@ class ProdukController extends Controller
         return redirect()->route('produk')->with('success', 'Produk berhasil dihapus');
     }
     
-    public function update(Request $produk, $id)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama_produk' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:1000',
+            'harga' => 'required|numeric|min:0',
+            'stok' => 'required|integer|min:0',
+            'satuan' => 'string|max:50',
+        ]);
+        
         $produk = Produk::find($id);
         $produk->update([
-            'nama_produk' => $produk['nama_produk'],
-            'deskripsi' => $produk['deskripsi'],
-            'harga' => $produk['harga'],
-            'stok' => $produk['stok'],
-            'satuan' => $produk['satuan'],
+            'nama_produk' => $request['nama_produk'],
+            'deskripsi' => $request['deskripsi'],
+            'harga' => $request['harga'],
+            'stok' => $request['stok'],
+            'satuan' => $request['satuan'],
         ]);
         return redirect()->route('produk')->with('success', 'Produk berhasil diupdate');
     }
 }
+

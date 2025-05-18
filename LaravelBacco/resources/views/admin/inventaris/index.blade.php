@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
-<head>
-    <title>Data Inventaris</title>
-    <!-- Font Awesome for Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-</head>
+@section('title', 'Inventaris')
+
 
 @section('content')
     <main class="max-w-screen container mx-auto min-h-screen p-0 md:p-6">
@@ -17,7 +14,7 @@
                         <i class="fas fa-chart-line mr-2"></i> Prediksi ARIMA
                     </a>
                     <a class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-700"
-                        href="{{ route('produk.tambah') }}">
+                        href="{{ route('inventaris.create') }}">
                         <i class="fas fa-plus mr-2"></i> Tambah Inventaris
                     </a>
                 </div>
@@ -36,7 +33,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-700"
                                 scope="col">Stok</th>
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-700"
-                                scope="col">Tanggal</th>
+                                scope="col">Tanggal Dibuat</th>
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-700"
                                 scope="col">Aksi</th>
                         </tr>
@@ -53,23 +50,28 @@
                                     {{ $inven->is_rusak ? 'Rusak' : '' }}</td>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">{{ $inven->produk->stok }}
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">{{ $inven->created_at->format('d-m-Y') }}
+                                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">{{ $inven->created_at->format('d M Y H:i:s') }}
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">
                                     <div class="flex space-x-4">
+                                        @if ($inven->is_rusak)
+                                            <span class="text-red-600">Rusak</span>
+                                        @else
                                         <a class="text-blue-600 hover:text-blue-900"
                                             href="{{ route('inventaris.edit', $inven->id) }}">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
-                                        <form class="inline" action="{{ route('produk.destroy', $inven->id) }}"
+                                        <form class="inline" action="{{ route('inventaris.destroy', $inven->id) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="text-red-600 hover:text-red-900" type="submit"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">
-                                                <i class="fas fa-trash-alt"></i> Hapus
+                                            <button class="inline-flex items-center text-green-600 hover:text-green-900" type="submit"
+                                                onclick="return confirm('Apakah Anda yakin ingin mengembalikan produk ini ke stok?')">
+                                                <i class="fas fa-undo-alt mr-1"></i> Kembalikan ke Stok
                                             </button>
                                         </form>
+                                        @endif
+
                                     </div>
 
                                 </td>

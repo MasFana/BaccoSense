@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Produk')
+
+
 @section('content')
 <main class="container mx-auto p-0 md:p-6 min-h-screen max-w-screen">
     <div class="bg-white rounded-lg shadow-md overflow-hidden">

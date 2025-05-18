@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Produk')
+@section('title', 'Edit Produk')
 
 @section('content')
     <main class="container mx-auto min-h-screen p-4 md:p-6">
@@ -51,8 +51,8 @@
                         <div class="col-span-2">
                             <label class="mb-1 block text-sm font-medium text-gray-700" for="deskripsi">Deskripsi</label>
                             <textarea class="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
-                                id="deskripsi" name="deskripsi" value="{{ $produk->deskripsi }}" rows="3"
-                                placeholder="Masukkan deskripsi produk"></textarea>
+                                id="deskripsi" name="deskripsi" rows="3"
+                                placeholder="Masukkan deskripsi produk">{{$produk->deskripsi}}</textarea>
                         </div>
 
                         <!-- Satuan -->
@@ -64,7 +64,18 @@
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
+                    <!-- Validation Errors -->
+                    @if ($errors->any())
+                        <div class="mt-4 p-4 text-red-700" role="alert">
+                            <ul class="list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <!-- Session Messages -->
                     @if (session('success'))
                         <div class="mb-4 border-l-4 border-green-500 bg-green-100 p-4 text-green-700" role="alert">
                             <p>{{ session('success') }}</p>

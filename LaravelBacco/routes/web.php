@@ -42,6 +42,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [InventarisController::class, 'index'])->name('inventaris');
         Route::get('edit/{id}', [InventarisController::class, 'edit'])->name('inventaris.edit');
         Route::get('/arima', [InventarisController::class, 'arima'])->name('inventaris.arima');
+        Route::post('/edit/{id}', [InventarisController::class, 'update'])->name('inventaris.update');
+        Route::delete('/{id}', [InventarisController::class, 'destroy'])->name('inventaris.destroy');
+        Route::get('/tambah', [InventarisController::class, 'tambah'])->name('inventaris.tambah');
+        Route::post('/', [InventarisController::class, 'store'])->name('inventaris.create');
     });
 
     
