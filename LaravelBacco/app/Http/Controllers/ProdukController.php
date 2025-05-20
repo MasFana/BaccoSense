@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use App\Models\Inventaris;
 
 class ProdukController extends Controller
 {
@@ -34,7 +35,7 @@ class ProdukController extends Controller
             'stok' => 'required|integer|min:0',
             'satuan' => 'string|max:50',
         ]);
-        
+
         Produk::create([
             'nama_produk' => $produk['nama_produk'],
             'deskripsi' => $produk['deskripsi'],
@@ -44,17 +45,19 @@ class ProdukController extends Controller
         ]);
         return redirect()->route('produk')->with('success', 'Produk berhasil ditambahkan');
     }
-    
+
     public function destroy($id)
     {
         $produk = Produk::find($id);
         if (!$produk) {
-            return redirect()->route('produk')->with('error', 'Produk tidak ditemukan');
+            return redirect()->back()->with('error', 'Produk tidak ditemukan');
         }
+        // Check if the product has related records in other tables
+        Inventaris::where('produk_id', $id)->delete();
         $produk->delete();
-        return redirect()->route('produk')->with('success', 'Produk berhasil dihapus');
+        return redirect()->back()->with('success', 'Produk berhasil dihapus');
     }
-    
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -64,7 +67,7 @@ class ProdukController extends Controller
             'stok' => 'required|integer|min:0',
             'satuan' => 'string|max:50',
         ]);
-        
+
         $produk = Produk::find($id);
         $produk->update([
             'nama_produk' => $request['nama_produk'],

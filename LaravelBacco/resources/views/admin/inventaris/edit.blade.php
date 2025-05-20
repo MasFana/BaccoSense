@@ -23,18 +23,12 @@
                         <div class="col-span-2">
                             <label class="mb-1 block text-sm font-medium text-gray-700" for="nama_produk">Nama
                                 Produk</label>
-                            <select
+                            <input
                                 class="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
-                                id="produk_id" name="produk_id" required onchange="updateStockLimit(this)">
-                                <option value="">Pilih Produk</option>
-                                @foreach($produks as $produk)
-                                    <option value="{{ $produk->id }}" 
-                                        data-stock="{{ $produk->stok }}"
-                                        {{ $inventaris->produk_id == $produk->id ? 'selected' : '' }}>
-                                        {{ $produk->nama_produk }} (Stok: {{ $produk->stok }})
-                                    </option>
-                                @endforeach
-                            </select>
+                                id="nama_produk" name="nama_produk" type="text" 
+                                value="{{ $inventaris->produk->nama_produk. ' ('.$inventaris->produk->stok.')' }}" 
+                                readonly>
+                            <input type="hidden" name="produk_id" value="{{ $inventaris->produk_id }}">
                         </div>
 
                         <!-- Jumlah -->

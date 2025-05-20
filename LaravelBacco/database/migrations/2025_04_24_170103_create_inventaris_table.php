@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('inventaris', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Produk::class, 'produk_id')->constrained();
+            $table->foreignIdFor(Produk::class, 'produk_id')->constrained()->onDelete('cascade');
             $table->integer('jumlah')->unsigned();
             $table->boolean('is_rusak')->default(false);
             $table->timestamps();
