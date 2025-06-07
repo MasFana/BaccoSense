@@ -16,12 +16,10 @@ Route::post('/login', [LoginController::class, 'login']);
 // Log the user out
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
 Route::get('/', function () {
     // return view('welcome');
     return redirect('login');
 });
-
 
 Route::group(['middleware' => ['auth']], function () {
     // Protected routes
@@ -48,7 +46,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/', [InventarisController::class, 'store'])->name('inventaris.create');
     });
 
-    
-    Route::get('/penjualan', [InventarisController::class, 'index'])->name('penjualan');
-    Route::get('/pembelian', [InventarisController::class, 'index'])->name('pembelian');
+
+    Route::resource('penjualan', 'App\Http\Controllers\PenjualanController');
+    Route::resource('pembelian', 'App\Http\Controllers\PembelianController');
+
+    Route::get('/profile', 'App\Http\Controllers\ProfileController@index')->name('profile');
 });

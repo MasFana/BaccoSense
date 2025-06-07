@@ -6,16 +6,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@yield('title', 'Baccosense')</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"
-            integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM8b+z4+2e5c5e5e5e5e5e5e5e5e5e5e5e5e5" crossorigin="anonymous">
+            crossorigin="anonymous">
         @stack('styles')
 
-        <head>
-            <title>Data Inventaris</title>
-            <!-- Font Awesome for Icons -->
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-        </head>
-        
+        <title>Data Inventaris</title>
+        <!-- Font Awesome for Icons -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
     </head>
 
     <body class="max-w-screen bg-gray-200">

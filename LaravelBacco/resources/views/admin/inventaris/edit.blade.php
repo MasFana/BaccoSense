@@ -25,10 +25,9 @@
                                 Produk</label>
                             <input
                                 class="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
-                                id="nama_produk" name="nama_produk" type="text" 
-                                value="{{ $inventaris->produk->nama_produk. ' ('.$inventaris->produk->stok.')' }}" 
-                                readonly>
-                            <input type="hidden" name="produk_id" value="{{ $inventaris->produk_id }}">
+                                id="nama_produk" name="nama_produk" type="text"
+                                value="{{ $inventaris->produk->nama_produk . ' (' . $inventaris->produk->stok . ')' }}" readonly>
+                            <input name="produk_id" type="hidden" value="{{ $inventaris->produk_id }}">
                         </div>
 
                         <!-- Jumlah -->
@@ -38,7 +37,8 @@
                                 class="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
                                 id="jumlah" name="jumlah" type="number" value="{{ $inventaris->jumlah }}"
                                 placeholder="Masukkan jumlah" min="0" required>
-                            <p id="stock-warning" class="mt-1 text-sm text-red-600 hidden">Jumlah melebihi stok yang tersedia!</p>
+                            <p class="mt-1 hidden text-sm text-red-600" id="stock-warning">Jumlah melebihi stok yang
+                                tersedia!</p>
                         </div>
 
                         <!-- Is Rusak -->
@@ -57,7 +57,7 @@
                     <!-- Validation Errors -->
                     @if ($errors->any())
                         <div class="mt-4 p-4 text-red-700" role="alert">
-                            <ul class="list-disc list-inside">
+                            <ul class="list-inside list-disc">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
@@ -72,7 +72,7 @@
                     @endif
 
                     @if (session('error'))
-                        <div class="mb-4 mt-6 border-l-4 border-red-500 bg-red-100 p-4 text-red-700" role="alert">
+                        <div class="mb-4 border-l-4 border-red-500 bg-red-100 p-4 text-red-700" role="alert">
                             <p>{{ session('error') }}</p>
                         </div>
                     @endif
@@ -80,16 +80,18 @@
                     <!-- Created At and Updated At Info -->
                     <div class="mt-6 rounded-md bg-gray-50 p-4">
                         <div class="grid grid-cols-1 gap-2 text-sm text-gray-600 md:grid-cols-2">
-                            <p><i class="fas fa-clock mr-2"></i><strong>Dibuat:</strong> {{ $inventaris->created_at->format('d M Y H:i:s') }}</p>
-                            <p><i class="fas fa-history mr-2"></i><strong>Diupdate:</strong> {{ $inventaris->updated_at->format('d M Y H:i:s') }}</p>
+                            <p><i class="fas fa-clock mr-2"></i><strong>Dibuat:</strong>
+                                {{ $inventaris->created_at->format('d M Y H:i:s') }}</p>
+                            <p><i class="fas fa-history mr-2"></i><strong>Diupdate:</strong>
+                                {{ $inventaris->updated_at->format('d M Y H:i:s') }}</p>
                         </div>
                     </div>
 
                     <!-- Submit Button -->
                     <div class="mt-6 flex justify-end">
-                        <button id="submit-btn"
+                        <button
                             class="flex items-center rounded-md bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700"
-                            type="submit" onclick="return validateForm()">
+                            id="submit-btn" type="submit" onclick="return validateForm()">
                             <i class="fas fa-save mr-2"></i> Simpan Inventaris
                         </button>
                     </div>
@@ -101,7 +103,7 @@
                     const selectedOption = selectElement.options[selectElement.selectedIndex];
                     const stockLimit = selectedOption.dataset.stock;
                     const jumlahInput = document.getElementById('jumlah');
-                    
+
                     jumlahInput.max = stockLimit;
                     validateQuantity(jumlahInput.value, stockLimit);
                 }
@@ -109,7 +111,7 @@
                 function validateQuantity(value, max) {
                     const warning = document.getElementById('stock-warning');
                     const submitBtn = document.getElementById('submit-btn');
-                    
+
                     if (parseInt(value) > parseInt(max)) {
                         warning.classList.remove('hidden');
                         submitBtn.disabled = true;
@@ -150,9 +152,5 @@
             </script>
         </div>
     </main>
-
-    <!-- Include Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    
 
 @endsection

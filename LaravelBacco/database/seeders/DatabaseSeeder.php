@@ -5,8 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Produk;
+use App\Models\Penjualan;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Pembelian;
 use App\Models\Inventaris;
 
 class DatabaseSeeder extends Seeder
@@ -34,6 +36,16 @@ class DatabaseSeeder extends Seeder
         });
 
         Inventaris::factory(10)->create()->each(function ($inventaris) {
+        });
+
+        Penjualan::factory(100)->create()->each(function ($penjualan) {
+            $penjualan->produk()->associate(Produk::inRandomOrder()->first());
+            $penjualan->save();
+        });
+
+        Pembelian::factory(100)->create()->each(function ($pembelian) {
+            $pembelian->produk()->associate(Produk::inRandomOrder()->first());
+            $pembelian->save();
         });
     }
 }

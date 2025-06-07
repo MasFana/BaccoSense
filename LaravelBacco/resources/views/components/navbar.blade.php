@@ -24,15 +24,15 @@
                             </a>
                         </li>
                         <li>
-                            <a class="flex flex-col items-center {{ request()->is('inventaris*') ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600' }}" href="{{ url('/inventaris') }}">
-                                <i class="fas fa-warehouse mb-1 text-lg"></i>
-                                <span class="text-sm">Inventaris</span>
-                            </a>
-                        </li>
-                        <li>
                             <a class="flex flex-col items-center {{ request()->is('pembelian*') ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600' }}" href="{{ url('/pembelian') }}">
                                 <i class="fas fa-shopping-bag mb-1 text-lg"></i>
                                 <span class="text-sm">Pembelian</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex flex-col items-center {{ request()->is('inventaris*') ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600' }}" href="{{ url('/inventaris') }}">
+                                <i class="fas fa-warehouse mb-1 text-lg"></i>
+                                <span class="text-sm">Inventaris</span>
                             </a>
                         </li>
                     </ul>

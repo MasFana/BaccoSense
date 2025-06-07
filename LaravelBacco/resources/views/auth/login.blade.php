@@ -6,7 +6,7 @@
     <div class="w-full h-full mb-16 lg:mb-0 max-w-md bg-white md:shadow-lg p-6 transition-transform duration-300 ease-in-out">
         <!-- Tobacco SVG Icon -->
         <div class="flex justify-center mb-2">
-            <svg class="w-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="w-12" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
