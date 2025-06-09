@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use App\Models\State_Iot;
 use App\Models\Produk;
 use App\Models\Inventaris;
 
@@ -17,12 +18,13 @@ class InventarisController extends Controller
 
     public function index()
     {
+        $stateKosong = State_Iot::first();
         $inventaris = Inventaris::with("produk")
             ->orderBy('is_rusak', 'asc')
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
-        return view('admin.inventaris.index', compact('inventaris'));
+        return view('admin.inventaris.index', compact('inventaris', 'stateKosong'));
     }
 
     public function edit($id)
@@ -118,6 +120,23 @@ class InventarisController extends Controller
         Inventaris::create($request->all());
 
         return redirect()->route('inventaris')->with('success', 'Inventaris created successfully.');
+    }
+
+    public function setState(Request $request)
+    {
+        $request->validate([
+            'state_kosong_penyimpanan' => 'required|boolean',
+        ]);
+
+        $state = State_Iot::first();
+        if (!$state) {
+            $state = new State_Iot();
+        }
+
+        $state->state_kosong_penyimpanan = $request->input('state_kosong_penyimpanan');
+        $state->save();
+
+        return redirect()->route('inventaris')->with('success', 'State updated successfully.');
     }
     
     public function arima()

@@ -21,11 +21,12 @@ Route::get('/', function () {
     return redirect('login');
 });
 
+Route::post('/add', [App\Http\Controllers\AdminController::class, 'add_history'])->name('dashboard.add_history');
+
 Route::group(['middleware' => ['auth']], function () {
     // Protected routes
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    
+    Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
 
     Route::group(['prefix' => 'produk'], function () {
         Route::get('/', [ProdukController::class, 'index'])->name('produk');

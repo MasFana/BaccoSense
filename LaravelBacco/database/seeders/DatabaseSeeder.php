@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\SuhuKelembaban;
 use App\Models\Produk;
 use App\Models\Penjualan;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -46,6 +47,11 @@ class DatabaseSeeder extends Seeder
         Pembelian::factory(100)->create()->each(function ($pembelian) {
             $pembelian->produk()->associate(Produk::inRandomOrder()->first());
             $pembelian->save();
+        });
+
+        SuhuKelembaban::factory(10)->create()->each(function ($suhuKelembaban) {
+            $suhuKelembaban->created_at = now()->subHours(rand(0, 10));
+            $suhuKelembaban->save();
         });
     }
 }

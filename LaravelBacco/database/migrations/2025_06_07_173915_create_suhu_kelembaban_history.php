@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suhu_kelembaban_history', function (Blueprint $table) {
+        Schema::create('suhu_kelembabans', function (Blueprint $table) {
             $table->id();
             $table->decimal('suhu', 5, 2)->comment('Suhu dalam derajat Celsius');
             $table->decimal('kelembaban', 5, 2)->comment('Kelembaban dalam persentase');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suhu_kelembaban_history');
+        Schema::dropIfExists('suhu_kelembabans');
     }
 };

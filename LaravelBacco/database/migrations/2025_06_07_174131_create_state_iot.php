@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('state_iot', function (Blueprint $table) {
+        Schema::create('state_iots', function (Blueprint $table) {
             $table->id();
             $table->integer('state_kosong_penyimpanan');
             $table->boolean('state_pemanas');
@@ -20,6 +20,16 @@ return new class extends Migration
             $table->boolean('state_humidefier');
             $table->timestamps();
         });
+        
+        DB::table('state_iots')->insert([
+            'state_kosong_penyimpanan' => 0,
+            'state_pemanas' => false,
+            'state_pendingin' => false,
+            'state_dehumideieir' => false,
+            'state_humidefier' => false,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 
     /**
