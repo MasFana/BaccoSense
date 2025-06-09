@@ -24,7 +24,10 @@
         <x-navbar />
 
         @yield('content')
-        <x-footer />
+        @if (!Route::is('login'))
+            <x-footer />
+        @endif
+
         @stack('scripts')
     </body>
 
