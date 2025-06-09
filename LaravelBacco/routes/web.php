@@ -51,4 +51,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('pembelian', 'App\Http\Controllers\PembelianController');
 
     Route::get('/profile', 'App\Http\Controllers\ProfileController@index')->name('profile');
+    Route::put('/profile', 'App\Http\Controllers\ProfileController@update')->name('profile.update');
 });

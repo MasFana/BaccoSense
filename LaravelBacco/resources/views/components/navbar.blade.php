@@ -38,9 +38,9 @@
                     </ul>
                 </div>
                 <div class="space-x-4">
-                    <a class="flex flex-col items-center text-gray-600 hover:text-blue-600" href="{{ route('logout') }}">
-                        <i class="fas fa-sign-out-alt mb-1 text-lg"></i>
-                        <span class="hidden md:block text-sm">Logout</span>
+                    <a class="flex flex-col items-center text-gray-600 hover:text-blue-600" href="{{ route('profile') }}">
+                        <i class="fas fa-user mb-1 text-lg"></i>
+                        <span class="hidden md:block text-sm">Profile</span>
                     </a>
                 </div>
                 @endauth
