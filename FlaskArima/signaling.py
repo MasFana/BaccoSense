@@ -3,14 +3,15 @@ import json
 import requests
 from datetime import datetime
 import time
+import ssl
 
-# MQTT config (non-SSL)
+# MQTT config (with SSL)
 MQTT_BROKER = "7d677df85f0a4b2ca584c9e9c7f3a1de.s1.eu.hivemq.cloud"
-MQTT_PORT = 1883  # Unencrypted MQTT
+MQTT_PORT = 8883  # MQTT over TLS
 MQTT_USERNAME = "fanaqt"
 MQTT_PASSWORD = "Fana12345"
 MQTT_TOPIC = "sk"
-
+CLIENT_ID = "MasFanaPythonClientSignaling"
 # POST target
 POST_URL = "http://localhost:8000/add"
 
@@ -19,7 +20,10 @@ last_sent_minute = -1
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code", rc)
-    client.subscribe(MQTT_TOPIC)
+    if rc == 0:
+        client.subscribe(MQTT_TOPIC)
+    else:
+        print("Connection failed")
 
 def on_message(client, userdata, msg):
     global last_sent_minute
@@ -41,23 +45,31 @@ def on_message(client, userdata, msg):
 
     if current_minute % 10 == 0 and current_minute != last_sent_minute:
         try:
-            response = requests.post(POST_URL, data={
+            response = requests.post(POST_URL, json={  # Using json instead of data for better formatting
                 "suhu": suhu,
                 "kelembaban": kelembaban
             })
-            print("Posted:", response.status_code)
+            print("Posted:", response.status_code, response.text)
             last_sent_minute = current_minute
         except Exception as e:
             print("Failed to POST:", e)
 
-# MQTT client (non-TLS)
-client = mqtt.Client()
+# MQTT client with TLS
+client = mqtt.Client(CLIENT_ID)
 client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
+
+# Configure TLS
+client.tls_set(tls_version=ssl.PROTOCOL_TLS)  # Enable TLS
+client.tls_insecure_set(True)  # For testing only (disable hostname verification)
 
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect(MQTT_BROKER, MQTT_PORT, 60)
+try:
+    client.connect(MQTT_BROKER, MQTT_PORT, 60)
+except Exception as e:
+    print("Connection error:", e)
+    exit(1)
 
 client.loop_start()
 

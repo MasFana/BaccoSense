@@ -1,257 +1,257 @@
 {
     "metadata": {
-        "generated_at": "2025-06-07 02:11:47",
+        "generated_at": "2025-06-13 15:22:15",
         "forecast_horizon": 3,
         "model": "ARIMA"
     },
     "original_data": [
         {
-            "tanggal": "2024-07-01T02:11:42.630",
-            "penjualan": 605,
+            "tanggal": "2024-07-01T15:22:10.728",
+            "penjualan": 458,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2024-08-01T02:11:42.630",
-            "penjualan": 597,
+            "tanggal": "2024-08-01T15:22:10.728",
+            "penjualan": 429,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2024-09-01T02:11:42.630",
-            "penjualan": 829,
+            "tanggal": "2024-09-01T15:22:10.728",
+            "penjualan": 505,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2024-10-01T02:11:42.630",
-            "penjualan": 670,
+            "tanggal": "2024-10-01T15:22:10.728",
+            "penjualan": 517,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2024-11-01T02:11:42.630",
-            "penjualan": 656,
+            "tanggal": "2024-11-01T15:22:10.728",
+            "penjualan": 407,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2024-12-01T02:11:42.630",
-            "penjualan": 519,
+            "tanggal": "2024-12-01T15:22:10.728",
+            "penjualan": 298,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2025-01-01T02:11:42.630",
-            "penjualan": 554,
+            "tanggal": "2025-01-01T15:22:10.728",
+            "penjualan": 276,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2025-02-01T02:11:42.630",
-            "penjualan": 586,
+            "tanggal": "2025-02-01T15:22:10.728",
+            "penjualan": 288,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2025-03-01T02:11:42.630",
-            "penjualan": 694,
+            "tanggal": "2025-03-01T15:22:10.728",
+            "penjualan": 316,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2025-04-01T02:11:42.630",
-            "penjualan": 710,
+            "tanggal": "2025-04-01T15:22:10.728",
+            "penjualan": 415,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2025-05-01T02:11:42.630",
-            "penjualan": 784,
+            "tanggal": "2025-05-01T15:22:10.728",
+            "penjualan": 421,
             "nama_produk": "Tembakau Virginia"
         },
         {
-            "tanggal": "2025-06-01T02:11:42.630",
-            "penjualan": 673,
-            "nama_produk": "Tembakau Virginia"
-        },
-        {
-            "tanggal": "2024-07-01T02:11:42.630",
+            "tanggal": "2025-06-01T15:22:10.728",
             "penjualan": 282,
+            "nama_produk": "Tembakau Virginia"
+        },
+        {
+            "tanggal": "2024-07-01T15:22:10.728",
+            "penjualan": 330,
             "nama_produk": "Tembakau Mole"
         },
         {
-            "tanggal": "2024-08-01T02:11:42.630",
-            "penjualan": 318,
+            "tanggal": "2024-08-01T15:22:10.728",
+            "penjualan": 423,
             "nama_produk": "Tembakau Mole"
         },
         {
-            "tanggal": "2024-09-01T02:11:42.630",
-            "penjualan": 384,
+            "tanggal": "2024-09-01T15:22:10.728",
+            "penjualan": 545,
             "nama_produk": "Tembakau Mole"
         },
         {
-            "tanggal": "2024-10-01T02:11:42.630",
+            "tanggal": "2024-10-01T15:22:10.728",
+            "penjualan": 430,
+            "nama_produk": "Tembakau Mole"
+        },
+        {
+            "tanggal": "2024-11-01T15:22:10.728",
+            "penjualan": 476,
+            "nama_produk": "Tembakau Mole"
+        },
+        {
+            "tanggal": "2024-12-01T15:22:10.728",
+            "penjualan": 349,
+            "nama_produk": "Tembakau Mole"
+        },
+        {
+            "tanggal": "2025-01-01T15:22:10.728",
+            "penjualan": 313,
+            "nama_produk": "Tembakau Mole"
+        },
+        {
+            "tanggal": "2025-02-01T15:22:10.728",
+            "penjualan": 335,
+            "nama_produk": "Tembakau Mole"
+        },
+        {
+            "tanggal": "2025-03-01T15:22:10.728",
             "penjualan": 394,
             "nama_produk": "Tembakau Mole"
         },
         {
-            "tanggal": "2024-11-01T02:11:42.630",
-            "penjualan": 333,
+            "tanggal": "2025-04-01T15:22:10.728",
+            "penjualan": 479,
             "nama_produk": "Tembakau Mole"
         },
         {
-            "tanggal": "2024-12-01T02:11:42.630",
-            "penjualan": 255,
+            "tanggal": "2025-05-01T15:22:10.728",
+            "penjualan": 406,
             "nama_produk": "Tembakau Mole"
         },
         {
-            "tanggal": "2025-01-01T02:11:42.630",
-            "penjualan": 246,
-            "nama_produk": "Tembakau Mole"
-        },
-        {
-            "tanggal": "2025-02-01T02:11:42.630",
-            "penjualan": 304,
-            "nama_produk": "Tembakau Mole"
-        },
-        {
-            "tanggal": "2025-03-01T02:11:42.630",
-            "penjualan": 301,
-            "nama_produk": "Tembakau Mole"
-        },
-        {
-            "tanggal": "2025-04-01T02:11:42.630",
-            "penjualan": 367,
-            "nama_produk": "Tembakau Mole"
-        },
-        {
-            "tanggal": "2025-05-01T02:11:42.630",
-            "penjualan": 392,
-            "nama_produk": "Tembakau Mole"
-        },
-        {
-            "tanggal": "2025-06-01T02:11:42.630",
-            "penjualan": 368,
-            "nama_produk": "Tembakau Mole"
-        },
-        {
-            "tanggal": "2024-07-01T02:11:42.630",
-            "penjualan": 573,
-            "nama_produk": "Tembakau Srinthil"
-        },
-        {
-            "tanggal": "2024-08-01T02:11:42.630",
-            "penjualan": 620,
-            "nama_produk": "Tembakau Srinthil"
-        },
-        {
-            "tanggal": "2024-09-01T02:11:42.630",
-            "penjualan": 831,
-            "nama_produk": "Tembakau Srinthil"
-        },
-        {
-            "tanggal": "2024-10-01T02:11:42.630",
-            "penjualan": 672,
-            "nama_produk": "Tembakau Srinthil"
-        },
-        {
-            "tanggal": "2024-11-01T02:11:42.630",
-            "penjualan": 556,
-            "nama_produk": "Tembakau Srinthil"
-        },
-        {
-            "tanggal": "2024-12-01T02:11:42.630",
-            "penjualan": 438,
-            "nama_produk": "Tembakau Srinthil"
-        },
-        {
-            "tanggal": "2025-01-01T02:11:42.630",
-            "penjualan": 449,
-            "nama_produk": "Tembakau Srinthil"
-        },
-        {
-            "tanggal": "2025-02-01T02:11:42.630",
-            "penjualan": 450,
-            "nama_produk": "Tembakau Srinthil"
-        },
-        {
-            "tanggal": "2025-03-01T02:11:42.630",
+            "tanggal": "2025-06-01T15:22:10.728",
             "penjualan": 431,
+            "nama_produk": "Tembakau Mole"
+        },
+        {
+            "tanggal": "2024-07-01T15:22:10.728",
+            "penjualan": 421,
             "nama_produk": "Tembakau Srinthil"
         },
         {
-            "tanggal": "2025-04-01T02:11:42.630",
-            "penjualan": 644,
+            "tanggal": "2024-08-01T15:22:10.728",
+            "penjualan": 548,
             "nama_produk": "Tembakau Srinthil"
         },
         {
-            "tanggal": "2025-05-01T02:11:42.630",
-            "penjualan": 581,
+            "tanggal": "2024-09-01T15:22:10.728",
+            "penjualan": 604,
             "nama_produk": "Tembakau Srinthil"
         },
         {
-            "tanggal": "2025-06-01T02:11:42.630",
-            "penjualan": 478,
+            "tanggal": "2024-10-01T15:22:10.728",
+            "penjualan": 504,
             "nama_produk": "Tembakau Srinthil"
         },
         {
-            "tanggal": "2024-07-01T02:11:42.630",
-            "penjualan": 518,
+            "tanggal": "2024-11-01T15:22:10.728",
+            "penjualan": 432,
+            "nama_produk": "Tembakau Srinthil"
+        },
+        {
+            "tanggal": "2024-12-01T15:22:10.728",
+            "penjualan": 497,
+            "nama_produk": "Tembakau Srinthil"
+        },
+        {
+            "tanggal": "2025-01-01T15:22:10.728",
+            "penjualan": 409,
+            "nama_produk": "Tembakau Srinthil"
+        },
+        {
+            "tanggal": "2025-02-01T15:22:10.728",
+            "penjualan": 423,
+            "nama_produk": "Tembakau Srinthil"
+        },
+        {
+            "tanggal": "2025-03-01T15:22:10.728",
+            "penjualan": 506,
+            "nama_produk": "Tembakau Srinthil"
+        },
+        {
+            "tanggal": "2025-04-01T15:22:10.728",
+            "penjualan": 649,
+            "nama_produk": "Tembakau Srinthil"
+        },
+        {
+            "tanggal": "2025-05-01T15:22:10.728",
+            "penjualan": 633,
+            "nama_produk": "Tembakau Srinthil"
+        },
+        {
+            "tanggal": "2025-06-01T15:22:10.728",
+            "penjualan": 494,
+            "nama_produk": "Tembakau Srinthil"
+        },
+        {
+            "tanggal": "2024-07-01T15:22:10.728",
+            "penjualan": 416,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2024-08-01T02:11:42.630",
-            "penjualan": 636,
+            "tanggal": "2024-08-01T15:22:10.728",
+            "penjualan": 337,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2024-09-01T02:11:42.630",
-            "penjualan": 625,
+            "tanggal": "2024-09-01T15:22:10.728",
+            "penjualan": 493,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2024-10-01T02:11:42.630",
-            "penjualan": 783,
+            "tanggal": "2024-10-01T15:22:10.728",
+            "penjualan": 503,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2024-11-01T02:11:42.630",
-            "penjualan": 511,
+            "tanggal": "2024-11-01T15:22:10.728",
+            "penjualan": 432,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2024-12-01T02:11:42.630",
-            "penjualan": 475,
+            "tanggal": "2024-12-01T15:22:10.728",
+            "penjualan": 318,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2025-01-01T02:11:42.630",
-            "penjualan": 466,
+            "tanggal": "2025-01-01T15:22:10.728",
+            "penjualan": 274,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2025-02-01T02:11:42.630",
-            "penjualan": 458,
+            "tanggal": "2025-02-01T15:22:10.728",
+            "penjualan": 396,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2025-03-01T02:11:42.630",
-            "penjualan": 530,
+            "tanggal": "2025-03-01T15:22:10.728",
+            "penjualan": 374,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2025-04-01T02:11:42.630",
-            "penjualan": 616,
+            "tanggal": "2025-04-01T15:22:10.728",
+            "penjualan": 504,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2025-05-01T02:11:42.630",
-            "penjualan": 689,
+            "tanggal": "2025-05-01T15:22:10.728",
+            "penjualan": 395,
             "nama_produk": "Tembakau Garangan"
         },
         {
-            "tanggal": "2025-06-01T02:11:42.630",
-            "penjualan": 572,
+            "tanggal": "2025-06-01T15:22:10.728",
+            "penjualan": 338,
             "nama_produk": "Tembakau Garangan"
         }
     ],
     "forecasts": {
         "Tembakau Virginia": {
             "values": [
-                656,
-                656,
-                656
+                143,
+                4,
+                0
             ],
             "dates": [
                 "2025-07-01",
@@ -261,9 +261,9 @@
         },
         "Tembakau Mole": {
             "values": [
-                344,
-                320,
-                296
+                397,
+                398,
+                378
             ],
             "dates": [
                 "2025-07-01",
@@ -273,9 +273,9 @@
         },
         "Tembakau Srinthil": {
             "values": [
-                392,
-                299,
-                209
+                355,
+                216,
+                77
             ],
             "dates": [
                 "2025-07-01",
@@ -285,9 +285,9 @@
         },
         "Tembakau Garangan": {
             "values": [
-                569,
-                498,
-                467
+                251,
+                182,
+                102
             ],
             "dates": [
                 "2025-07-01",
@@ -298,25 +298,25 @@
     },
     "metrics": {
         "rmse": {
-            "Tembakau Virginia": 87.23,
-            "Tembakau Mole": 100.74,
-            "Tembakau Srinthil": 230.84,
-            "Tembakau Garangan": 204.41
+            "Tembakau Virginia": 170.9,
+            "Tembakau Mole": 132.21,
+            "Tembakau Srinthil": 162.26,
+            "Tembakau Garangan": 188.1
         },
         "rmse_percentage": {
-            "Tembakau Virginia": 13.3,
-            "Tembakau Mole": 30.7,
-            "Tembakau Srinthil": 41.2,
-            "Tembakau Garangan": 35.7
+            "Tembakau Virginia": 44.5,
+            "Tembakau Mole": 32.3,
+            "Tembakau Srinthil": 31.8,
+            "Tembakau Garangan": 47.2
         },
         "mean_sales": {
-            "Tembakau Garangan": 573.25,
-            "Tembakau Mole": 328.6666666666667,
-            "Tembakau Srinthil": 560.25,
-            "Tembakau Virginia": 656.4166666666666
+            "Tembakau Garangan": 398.3333333333333,
+            "Tembakau Mole": 409.25,
+            "Tembakau Srinthil": 510.0,
+            "Tembakau Virginia": 384.3333333333333
         },
         "interpretation": {
-            "Tembakau Virginia": "Baik",
+            "Tembakau Virginia": "Kurang Baik",
             "Tembakau Mole": "Kurang Baik",
             "Tembakau Srinthil": "Kurang Baik",
             "Tembakau Garangan": "Kurang Baik"
@@ -331,5 +331,5 @@
             "Tembakau Garangan"
         ]
     },
-    "date": "2025-06-07"
+    "date": "2025-06-13"
 }
