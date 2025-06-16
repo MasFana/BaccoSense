@@ -8,14 +8,6 @@
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Enhanced color scheme */
-        :root {
-            --primary: #4f46e5;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #3b82f6;
-        }
 
         .gauge-container {
             position: absolute;
@@ -107,7 +99,7 @@
 
         .connection-status {
             position: fixed;
-            top: 10px;
+            bottom: 75px;
             right: 10px;
             padding: 5px 10px;
             border-radius: 20px;
@@ -288,7 +280,7 @@
         <!-- Additional Indicators -->
         <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
             <div class="rounded-lg border border-gray-100 bg-white p-4 shadow-lg">
-                <h3 class="mb-2 font-semibold">System Status</h3>
+                <h3 class="mb-2 font-semibold">Status System</h3>
                 <div class="space-y-2">
                     <div class="flex justify-between">
                         <span>Fuzzy Logic:</span>
@@ -304,8 +296,10 @@
                     </div>
                 </div>
             </div>
+            <x-capacity-penyimpanan id="storageCapacity" :used="0" :total="0" />
+
             <div class="rounded-lg border border-gray-100 bg-white p-4 shadow-lg">
-                <h3 class="mb-2 font-semibold">Device States</h3>
+                <h3 class="mb-2 font-semibold">State Perangkat</h3>
                 <div class="grid grid-cols-2 gap-2">
                     <div class="flex items-center">
                         <span class="status-indicator status-off mr-2" id="heaterStateIndicator"></span>
@@ -434,6 +428,10 @@
                     updateDeviceState('dehumidifier', data.r4);
                 }
 
+                if (data.j !== undefined){
+                    updateCapacitySlider('storageCapacity', data.j);
+                }
+                
                 // Update auto mode
                 if (data.auto !== undefined) {
                     autoMode = data.auto === 1;

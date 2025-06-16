@@ -5,6 +5,7 @@ use Illuminate\Auth\Events\Login;
 
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\JarakAPI;
 use App\Http\Controllers\InventarisController;
 
 // Show the login form
@@ -21,8 +22,13 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::post('/add', [App\Http\Controllers\AdminController::class, 'add_history'])->name('dashboard.add_history');
 
+Route::get('/jarak-kosong', [JarakAPI::class, 'getJarakKosong'])
+    ->name('jarak.kosong');
+Route::post('/jarak-kosong', [JarakAPI::class, 'updateJarakKosong'])
+    ->name('jarak.kosong.update');
+
+    
 Route::group(['middleware' => ['auth']], function () {
     // Protected routes
     

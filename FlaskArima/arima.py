@@ -48,23 +48,72 @@ def generate_forecasts():
     cursor.execute("SELECT DISTINCT nama_produk FROM produks")
     products = [row[0] for row in cursor.fetchall()]
     conn.close()
+    \
+    # Assuming you have a products list defined
+    # products = ['Product A', 'Product B', 'Product C']  # Add your products here
 
-    # Generate 12 months of data
     today = datetime.today().replace(day=1)
-    dates = pd.date_range(end=today, periods=12, freq='MS')
+    dates = pd.date_range(end=today, periods=36, freq='MS')  # 3 years of data
 
-    # Build DataFrame with realistic sales patterns
     all_data = []
+
     for produk in products:
-        base_sales = random.randint(300, 700)
-        seasonal_pattern = np.array([1.0, 1.1, 1.3, 1.2, 1.0, 0.9, 
-                                    0.8, 0.9, 1.0, 1.2, 1.3, 1.1])
-        trend = np.linspace(0, random.uniform(-0.2, 0.2), 12)
-        noise = np.random.normal(0, 0.1, 12)
+        # Base parameters optimized for ARIMA
+        base_sales = random.randint(400, 800)
+        trend_slope = random.uniform(-0.01, 0.01)  # Gentle linear trend
+        noise_std = random.uniform(0.03, 0.08)  # Lower noise for better predictability
         
-        sales = base_sales * seasonal_pattern * (1 + trend + noise)
-        sales = np.round(np.clip(sales, 100, 1000)).astype(int)
+        # Seasonal parameters
+        seasonal_strength = random.uniform(0.6, 1.0)
+        seasonal_phase = random.uniform(0, 2 * np.pi)  # Random phase shift
         
+        # Generate base trend component
+        trend = np.linspace(0, trend_slope * 36, 36)
+        
+        # Generate seasonal component for all 36 months
+        seasonal = np.array([
+            seasonal_strength * np.sin(2 * np.pi * i / 12 + seasonal_phase) 
+            for i in range(36)
+        ])
+        
+        # Generate ARIMA-friendly noise with AR(1) structure
+        ar_coef = random.uniform(0.2, 0.6)  # AR coefficient
+        ma_coef = random.uniform(-0.3, 0.3)  # MA coefficient
+        
+        # White noise
+        white_noise = np.random.normal(0, noise_std, 37)  # Extra for MA component
+        
+        # Generate ARMA noise
+        arma_noise = np.zeros(36)
+        arma_noise[0] = white_noise[0]
+        
+        for i in range(1, 36):
+            # AR(1) + MA(1) structure
+            arma_noise[i] = (ar_coef * arma_noise[i-1] + 
+                            white_noise[i] + 
+                            ma_coef * white_noise[i-1])
+        
+        # Combine all components
+        # Using multiplicative seasonal model: base * (1 + trend) * (1 + seasonal) * (1 + noise)
+        sales = base_sales * (1 + trend) * (1 + 0.2 * seasonal) * (1 + arma_noise)
+        
+        # Add some non-linearity occasionally
+        if random.random() < 0.3:  # 30% chance of slight non-linearity
+            quadratic_term = random.uniform(-0.0001, 0.0001)
+            time_squared = np.arange(36) ** 2
+            sales *= (1 + quadratic_term * time_squared)
+        
+        # Apply realistic constraints and ensure integer values
+        sales = np.round(np.clip(sales, 100, 1500)).astype(int)
+        
+        # Optional: Add occasional outliers (ARIMA can handle some)
+        if random.random() < 0.2:  # 20% chance of having outliers
+            outlier_indices = random.sample(range(5, 31), random.randint(1, 3))
+            for idx in outlier_indices:
+                outlier_multiplier = random.choice([0.7, 0.8, 1.2, 1.3])
+                sales[idx] = int(sales[idx] * outlier_multiplier)
+        
+        # Create DataFrame for this product
         df_produk = pd.DataFrame({
             'tanggal': dates,
             'penjualan': sales,

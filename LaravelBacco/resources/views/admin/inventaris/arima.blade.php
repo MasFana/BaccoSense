@@ -165,8 +165,8 @@
         const ctx = document.getElementById('salesChart').getContext('2d');
         
         // Prepare datasets
-        const historyDates = historicalData[product].map(item => item.date);
-        const historySales = historicalData[product].map(item => item.sales);
+        const historyDates = historicalData[product].map(item => item.date).slice(-15); // Last 15 records
+        const historySales = historicalData[product].map(item => item.sales).slice(-15); // Last 15 records
         
         const forecastDates = forecastData.forecasts[product].dates.map(date => new Date(date));
         const forecastSales = forecastData.forecasts[product].values;

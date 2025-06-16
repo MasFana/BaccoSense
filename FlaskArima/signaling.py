@@ -13,7 +13,7 @@ MQTT_PASSWORD = "Fana12345"
 MQTT_TOPIC = "sk"
 CLIENT_ID = "MasFanaPythonClientSignaling"
 # POST target
-POST_URL = "http://localhost:8000/add"
+POST_URL = "http://localhost:8000/api/add"
 
 # Track last sent minute
 last_sent_minute = -1
@@ -45,7 +45,7 @@ def on_message(client, userdata, msg):
 
     if current_minute % 10 == 0 and current_minute != last_sent_minute:
         try:
-            response = requests.post(POST_URL, json={  # Using json instead of data for better formatting
+            response = requests.post(POST_URL, data={
                 "suhu": suhu,
                 "kelembaban": kelembaban
             })
