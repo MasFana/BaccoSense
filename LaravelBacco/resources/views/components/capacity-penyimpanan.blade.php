@@ -48,8 +48,8 @@
                 const bar = document.getElementById(`${id}-bar`);
                 const percentageLabel = document.getElementById(`${id}-percentage`);
                 const numberLabel = document.getElementById(`${id}-label`);
-
-                const percentage = total > 0 ? Math.min(100, Math.round((used / total) * 100)) : 0;
+                
+                const percentage = total > 0 ? Math.max(0, 100 - Math.round((used / total) * 100)) : 0;
 
                 jarakState.used = used;
 

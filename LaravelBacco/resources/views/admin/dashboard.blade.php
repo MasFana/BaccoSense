@@ -428,7 +428,7 @@
                     updateDeviceState('dehumidifier', data.r4);
                 }
 
-                if (data.j !== undefined){
+                if (data.j !== undefined && data.j > 0){
                     updateCapacitySlider('storageCapacity', data.j);
                 }
                 
