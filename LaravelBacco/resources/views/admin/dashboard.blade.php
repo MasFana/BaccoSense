@@ -410,7 +410,7 @@
                 if (data.k !== undefined) {
                     updateHumidity(data.k);
                 }
-                if (data.j !== undefined) {
+                if (data.j !== undefined && data.j > 0) {
                     document.getElementById('distanceValue').textContent = `${data.j.toFixed(1)} cm`;
                 }
 

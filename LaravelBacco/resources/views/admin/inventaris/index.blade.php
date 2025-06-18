@@ -209,7 +209,7 @@
                 const data = JSON.parse(message);
                 console.log('Parsed data:', data);
 
-                if (data.j !== undefined) {
+                if (data.j !== undefined && data.j > 0) {
                     console.log('Updating storage capacity:', data.j);
                     updateCapacitySlider('storageCapacity', data.j);
                 }
