@@ -88,14 +88,26 @@ Upload `codeIOT.ino` ke board menggunakan Arduino IDE.
 
 ---
 
-## 📊 Visualisasi
+### 📷 Cuplikan Antarmuka
 
-Dashboard Laravel menyediakan:
+#### Web Dashboard (Desktop)
 
-* Grafik suhu/kelembaban historis
-* Forecast stok masa depan
-* Status perangkat (relay dan auto/manual)
-* Manajemen produk dan inventaris
+![Dashboard Desktop](./DesktopDashboard.png)
+
+#### Web Dashboard (Mobile)
+
+| Mobile View 1 | Mobile View 2 |
+|--------------|--------------|
+| ![Dashboard Mobile](./MobileDashoard.png) | ![Dashboard Mobile](./MobileDashboard2.png) |
+
+#### ARIMA Forecast View
+
+![Forecast ARIMA](./ARIMA.png)
+
+#### Desain IoT 
+
+![IoT Design](./DesignIOT.jpg)
+
 
 ---
 
@@ -119,3 +131,4 @@ Pull request dan feedback sangat diapresiasi! Pastikan menguji fitur sebelum mem
 ## 📝 Lisensi
 
 Proyek ini dilisensikan di bawah MIT License.
+Lihat [LICENSE](./LICENSE)
